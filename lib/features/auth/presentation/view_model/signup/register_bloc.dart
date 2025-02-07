@@ -35,7 +35,7 @@ class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
           password: event.password,
           phone: '',
           address: '',
-          avatar: event.avatar,
+          avatar: state.imageName,
           role: "user"),
     );
     newUser.fold(

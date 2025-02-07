@@ -27,7 +27,7 @@ class UserRemoteRepository implements IUserRepository {
   }
 
   @override
-  Future<Either<Failure, void>> deleteUser(String id) {
+  Future<Either<Failure, void>> deleteUser(String id, String? token) {
     // TODO: implement deleteUser
     throw UnimplementedError();
   }
