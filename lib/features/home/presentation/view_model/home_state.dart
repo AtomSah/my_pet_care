@@ -1,5 +1,7 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
+import 'package:pet_care/features/account/presentation/view/account_view.dart';
+import 'package:pet_care/features/booking/presentation/view/bookings_list_view.dart';
 import 'package:pet_care/features/dashboard/presentation/view/dashboard_view.dart';
 
 class HomeState extends Equatable {
@@ -16,21 +18,9 @@ class HomeState extends Equatable {
     return const HomeState(
       selectedIndex: 0,
       views: [
-        Center(
-          child: DashboardView(),
-        ),
-        Center(
-          child: Text('Chats'),
-        ),
-        Center(
-          child: Text('Sell'),
-        ),
-        Center(
-          child: Text('My Ads'),
-        ),
-        Center(
-          child: Text('Account'),
-        ),
+        DashboardView(),
+        BookingsListView(),
+        AccountView(),
       ],
     );
   }

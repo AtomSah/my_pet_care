@@ -4,8 +4,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pet_care/core/common/snackbar/my_snackbar.dart';
 import 'package:pet_care/features/auth/domain/use_case/login_usecase.dart';
 import 'package:pet_care/features/auth/presentation/view_model/signup/register_bloc.dart';
+import 'package:pet_care/features/home/presentation/view/home_view.dart';
 import 'package:pet_care/features/home/presentation/view_model/home_cubit.dart';
-import 'package:pet_care/features/home_view.dart';
 
 part 'login_event.dart';
 part 'login_state.dart';
@@ -65,11 +65,11 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
         (token) {
           emit(state.copyWith(isLoading: false, isSuccess: true));
           add(
-            NavigateHomeScreenEvent(
-              context: event.context,
-              destination: const HomeScreen(),
-            ),
-          );
+              NavigateHomeScreenEvent(
+                context: event.context,
+                destination: const HomeView(),
+              ),
+              );
           //_homeCubit.setToken(token);
         },
       );

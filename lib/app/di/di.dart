@@ -3,6 +3,9 @@ import 'package:get_it/get_it.dart';
 import 'package:pet_care/app/shared_prefs/token_shared_prefs.dart';
 import 'package:pet_care/core/network/api_service.dart';
 import 'package:pet_care/core/network/hive_service.dart';
+import 'package:pet_care/features/account/data/data_source/account_data_source.dart';
+import 'package:pet_care/features/account/domain/repository/account_repository.dart';
+import 'package:pet_care/features/account/presentation/view_model/account_bloc.dart';
 import 'package:pet_care/features/auth/data/data_source/local_datasource/local_datasource.dart';
 import 'package:pet_care/features/auth/data/data_source/remote_datasource/remote_datasource.dart';
 import 'package:pet_care/features/auth/data/repositories/user_local_repository.dart';
@@ -12,6 +15,12 @@ import 'package:pet_care/features/auth/domain/use_case/login_usecase.dart';
 import 'package:pet_care/features/auth/domain/use_case/upload_image_usecase.dart';
 import 'package:pet_care/features/auth/presentation/view_model/login/login_bloc.dart';
 import 'package:pet_care/features/auth/presentation/view_model/signup/register_bloc.dart';
+import 'package:pet_care/features/booking/data/data_source/booking_data_source.dart';
+import 'package:pet_care/features/booking/domain/repository/booking_repository.dart';
+import 'package:pet_care/features/booking/presentation/view_model/booking_bloc.dart';
+import 'package:pet_care/features/dashboard/data/data_source/pet_data_source.dart';
+import 'package:pet_care/features/dashboard/domain/repository/pet_repository.dart';
+import 'package:pet_care/features/dashboard/presentation/view_model/dashboard_bloc.dart';
 import 'package:pet_care/features/home/presentation/view_model/home_cubit.dart';
 import 'package:pet_care/features/onBoarding/presentation/view_model/onboarding_cubit.dart';
 import 'package:pet_care/features/splash/presentation/view_model/splash_cubit.dart';
@@ -26,6 +35,9 @@ Future<void> initDependencies() async {
   await _initHomeDependencies();
   await _initRegisterDependencies();
   await _initLoginDependencies();
+  await _initDashboardDependencies();
+  await _initBookingDependencies();
+  await _initAccountDependencies();
 
   await _initOnBoardingScreenDependencies();
   await _initSplashScreenDependencies();
@@ -42,8 +54,11 @@ _initHiveService() async {
 
 _initApiService() {
   // Remote Data Source
-  getIt.registerLazySingleton<Dio>(
-    () => ApiService(Dio()).dio,
+   getIt.registerLazySingleton<Dio>(
+    () => ApiService(
+      Dio(),
+      getIt<TokenSharedPrefs>(),
+    ).dio,
   );
 }
 
@@ -120,5 +135,63 @@ _initLoginDependencies() async {
 _initSplashScreenDependencies() async {
   getIt.registerFactory(
     () => SplashCubit(getIt<OnboardingCubit>()),
+  );
+}
+
+_initDashboardDependencies() {
+  // Data Sources
+  getIt.registerFactory<IPetDataSource>(
+    () => PetRemoteDataSource(getIt<Dio>()),
+  );
+
+  // Repository
+  getIt.registerLazySingleton<IPetRepository>(
+    () => PetRepository(getIt<IPetDataSource>()),
+  );
+
+  // Bloc
+  getIt.registerFactory<DashboardBloc>(
+    () => DashboardBloc(
+      petRepository: getIt<IPetRepository>(),
+    ),
+  );
+}
+
+_initBookingDependencies() {
+  // Data Source
+  getIt.registerFactory<IBookingDataSource>(
+    () => BookingRemoteDataSource(getIt<Dio>()),
+  );
+
+  // Repository
+  getIt.registerLazySingleton<IBookingRepository>(
+    () => BookingRepository(getIt<IBookingDataSource>()),
+  );
+
+  // Bloc
+  getIt.registerFactory<BookingBloc>(
+    () => BookingBloc(
+      bookingRepository: getIt<IBookingRepository>(),
+    ),
+  );
+}
+
+_initAccountDependencies() {
+  // Data Source
+  getIt.registerFactory<IAccountDataSource>(
+    () => AccountRemoteDataSource(getIt<Dio>()),
+  );
+
+  // Repository
+  getIt.registerLazySingleton<IAccountRepository>(
+    () => AccountRepository(getIt<IAccountDataSource>()),
+  );
+
+  // Bloc
+  getIt.registerFactory<AccountBloc>(
+    () => AccountBloc(
+      accountRepository: getIt<IAccountRepository>(),
+      tokenSharedPrefs: getIt<TokenSharedPrefs>(),
+    ),
   );
 }
