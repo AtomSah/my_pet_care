@@ -1,10 +1,32 @@
-part of 'dashboard_bloc.dart';
+import 'package:equatable/equatable.dart';
+import 'package:pet_care/features/dashboard/domain/entity/pet_entity.dart';
 
-sealed class DashboardState extends Equatable {
+
+abstract class DashboardState extends Equatable {
   const DashboardState();
   
   @override
   List<Object> get props => [];
 }
 
-final class DashboardInitial extends DashboardState {}
+class DashboardInitial extends DashboardState {}
+
+class DashboardLoading extends DashboardState {}
+
+class DashboardLoaded extends DashboardState {
+  final List<PetEntity> pets;
+
+  const DashboardLoaded({required this.pets});
+
+  @override
+  List<Object> get props => [pets];
+}
+
+class DashboardError extends DashboardState {
+  final String message;
+
+  const DashboardError({required this.message});
+
+  @override
+  List<Object> get props => [message];
+}
