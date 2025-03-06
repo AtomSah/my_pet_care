@@ -21,21 +21,19 @@ class _DashboardViewState extends State<DashboardView> {
   String selectedCategory = 'All';
   late StreamSubscription<AccelerometerEvent> _accelerometerSubscription;
   double _previousAcceleration = 0.0;
-  final double _threshold = 15.0; // Set threshold for shake detection
+  final double _threshold = 15.0;
 
   @override
   void initState() {
     super.initState();
     context.read<DashboardBloc>().add(LoadPetsEvent());
 
-    // Listen for accelerometer events to detect shake
     _accelerometerSubscription =
         accelerometerEvents.listen((AccelerometerEvent event) {
       double currentAcceleration =
           (event.x.abs() + event.y.abs() + event.z.abs());
 
       if (currentAcceleration - _previousAcceleration > _threshold) {
-        // Shake detected, trigger refresh
         context.read<DashboardBloc>().add(LoadPetsEvent());
       }
 
@@ -86,7 +84,7 @@ class _DashboardViewState extends State<DashboardView> {
   }
 
   Widget _buildHeader() {
-    return Row(
+    return const Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         Column(
@@ -96,11 +94,11 @@ class _DashboardViewState extends State<DashboardView> {
               'Find Your',
               style: TextStyle(
                 fontSize: 24,
-                color: Colors.grey[600],
+                color: Colors.blueAccent,
                 fontWeight: FontWeight.w500,
               ),
             ),
-            const Row(
+            Row(
               children: [
                 Text(
                   'Perfect Pet ',
@@ -117,17 +115,6 @@ class _DashboardViewState extends State<DashboardView> {
             ),
           ],
         ),
-        Container(
-          decoration: BoxDecoration(
-            color: Colors.grey[200],
-            borderRadius: BorderRadius.circular(15),
-          ),
-          padding: const EdgeInsets.all(8),
-          child: const Icon(
-            BoxIcons.bx_bell,
-            size: 28,
-          ),
-        ),
       ],
     );
   }
@@ -136,12 +123,20 @@ class _DashboardViewState extends State<DashboardView> {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
       decoration: BoxDecoration(
-        color: Colors.grey[200],
+        color: Colors.grey[100],
         borderRadius: BorderRadius.circular(15),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(0.1),
+            spreadRadius: 1,
+            blurRadius: 8,
+            offset: const Offset(0, 4),
+          ),
+        ],
       ),
       child: Row(
         children: [
-          Icon(BoxIcons.bx_search, color: Colors.grey[600]),
+          const Icon(BoxIcons.bx_search, color: Colors.blueAccent),
           const SizedBox(width: 10),
           Expanded(
             child: TextField(
@@ -155,7 +150,7 @@ class _DashboardViewState extends State<DashboardView> {
           Container(
             padding: const EdgeInsets.all(8),
             decoration: BoxDecoration(
-              color: Colors.black,
+              color: Colors.blueAccent,
               borderRadius: BorderRadius.circular(10),
             ),
             child: const Icon(
@@ -184,6 +179,7 @@ class _DashboardViewState extends State<DashboardView> {
           style: TextStyle(
             fontSize: 18,
             fontWeight: FontWeight.bold,
+            color: Colors.blueAccent,
           ),
         ),
         const SizedBox(height: 12),
@@ -205,7 +201,8 @@ class _DashboardViewState extends State<DashboardView> {
                       Container(
                         padding: const EdgeInsets.all(16),
                         decoration: BoxDecoration(
-                          color: isSelected ? Colors.black : Colors.grey[200],
+                          color:
+                              isSelected ? Colors.blueAccent : Colors.grey[200],
                           borderRadius: BorderRadius.circular(15),
                         ),
                         child: Text(
@@ -218,7 +215,8 @@ class _DashboardViewState extends State<DashboardView> {
                         category['name']!,
                         style: TextStyle(
                           fontWeight: FontWeight.w500,
-                          color: isSelected ? Colors.black : Colors.grey[600],
+                          color:
+                              isSelected ? Colors.blueAccent : Colors.grey[600],
                         ),
                       ),
                     ],
@@ -247,7 +245,7 @@ class _DashboardViewState extends State<DashboardView> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Icon(Icons.error_outline, size: 48, color: Colors.grey[400]),
+            Icon(Icons.error_outline, size: 48, color: Colors.red[400]),
             const SizedBox(height: 16),
             Text(
               state.message,
@@ -287,6 +285,7 @@ class _DashboardViewState extends State<DashboardView> {
                 style: const TextStyle(
                   fontSize: 18,
                   fontWeight: FontWeight.bold,
+                  color: Colors.blueAccent,
                 ),
               ),
             ],
@@ -396,6 +395,7 @@ class _DashboardViewState extends State<DashboardView> {
                     style: const TextStyle(
                       fontWeight: FontWeight.bold,
                       fontSize: 16,
+                      color: Colors.blueAccent,
                     ),
                   ),
                   const SizedBox(height: 5),

@@ -1,5 +1,3 @@
-// lib/features/help_support/presentation/view/help_support_view.dart
-
 import 'package:flutter/material.dart';
 import 'package:icons_plus/icons_plus.dart';
 
@@ -11,20 +9,19 @@ class HelpSupportView extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Help & Support'),
+        backgroundColor: Colors.blueAccent,
       ),
       body: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              _buildFAQSection(),
-              const SizedBox(height: 24),
-              _buildContactSection(),
-              const SizedBox(height: 24),
-              _buildPoliciesSection(),
-            ],
-          ),
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            _buildFAQSection(),
+            const SizedBox(height: 24),
+            _buildContactSection(),
+            const SizedBox(height: 24),
+            _buildPoliciesSection(),
+          ],
         ),
       ),
     );
@@ -37,8 +34,9 @@ class HelpSupportView extends StatelessWidget {
         const Text(
           'Frequently Asked Questions',
           style: TextStyle(
-            fontSize: 20,
+            fontSize: 22,
             fontWeight: FontWeight.bold,
+            color: Colors.blueAccent,
           ),
         ),
         const SizedBox(height: 16),
@@ -64,6 +62,7 @@ class HelpSupportView extends StatelessWidget {
         question,
         style: const TextStyle(
           fontWeight: FontWeight.w500,
+          color: Colors.blueAccent,
         ),
       ),
       children: [
@@ -72,7 +71,7 @@ class HelpSupportView extends StatelessWidget {
           child: Text(
             answer,
             style: TextStyle(
-              color: Colors.grey[600],
+              color: Colors.grey[700],
             ),
           ),
         ),
@@ -87,8 +86,9 @@ class HelpSupportView extends StatelessWidget {
         const Text(
           'Contact Us',
           style: TextStyle(
-            fontSize: 20,
+            fontSize: 22,
             fontWeight: FontWeight.bold,
+            color: Colors.blueAccent,
           ),
         ),
         const SizedBox(height: 16),
@@ -121,14 +121,17 @@ class HelpSupportView extends StatelessWidget {
     String subtitle,
   ) {
     return Card(
-      elevation: 0,
-      color: Colors.grey[100],
+      elevation: 2,
+      color: Colors.blueGrey[50],
       margin: const EdgeInsets.only(bottom: 12),
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(12),
+      ),
       child: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Row(
           children: [
-            Icon(icon, size: 24, color: Colors.black),
+            Icon(icon, size: 24, color: Colors.blueAccent),
             const SizedBox(width: 16),
             Expanded(
               child: Column(
@@ -138,6 +141,7 @@ class HelpSupportView extends StatelessWidget {
                     title,
                     style: const TextStyle(
                       fontWeight: FontWeight.w500,
+                      color: Colors.blueAccent,
                     ),
                   ),
                   Text(
@@ -170,36 +174,39 @@ class HelpSupportView extends StatelessWidget {
         const Text(
           'Policies & Information',
           style: TextStyle(
-            fontSize: 20,
+            fontSize: 22,
             fontWeight: FontWeight.bold,
+            color: Colors.blueAccent,
           ),
         ),
         const SizedBox(height: 16),
-        ListTile(
-          leading: const Icon(BoxIcons.bx_shield),
-          title: const Text('Privacy Policy'),
-          trailing: const Icon(Icons.arrow_forward_ios, size: 16),
-          onTap: () {
-            // Navigate to Privacy Policy
-          },
+        _buildPolicyItem(
+          BoxIcons.bx_shield,
+          'Privacy Policy',
         ),
-        ListTile(
-          leading: const Icon(BoxIcons.bx_file),
-          title: const Text('Terms of Service'),
-          trailing: const Icon(Icons.arrow_forward_ios, size: 16),
-          onTap: () {
-            // Navigate to Terms of Service
-          },
+        _buildPolicyItem(
+          BoxIcons.bx_file,
+          'Terms of Service',
         ),
-        ListTile(
-          leading: const Icon(BoxIcons.bx_book),
-          title: const Text('Pet Care Guidelines'),
-          trailing: const Icon(Icons.arrow_forward_ios, size: 16),
-          onTap: () {
-            // Navigate to Guidelines
-          },
+        _buildPolicyItem(
+          BoxIcons.bx_book,
+          'Pet Care Guidelines',
         ),
       ],
+    );
+  }
+
+  Widget _buildPolicyItem(IconData icon, String title) {
+    return ListTile(
+      leading: Icon(icon, color: Colors.blueAccent),
+      title: Text(
+        title,
+        style: const TextStyle(fontWeight: FontWeight.w500),
+      ),
+      trailing: const Icon(Icons.arrow_forward_ios, size: 16),
+      onTap: () {
+        // Navigate to respective policy details
+      },
     );
   }
 }

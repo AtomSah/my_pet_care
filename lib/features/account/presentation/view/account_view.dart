@@ -166,14 +166,15 @@ class _AccountViewState extends State<AccountView> {
                               'http://10.0.2.2:5000/api${profile.avatar}')
                           : null,
                       child: profile.avatar == null
-                          ? const Icon(Icons.person, size: 50)
+                          ? const Icon(Icons.person,
+                              size: 50, color: Colors.black)
                           : null,
                     ),
                     Positioned(
                       bottom: 0,
                       right: 0,
                       child: CircleAvatar(
-                        backgroundColor: Colors.black,
+                        backgroundColor: Colors.blueAccent,
                         radius: 18,
                         child: IconButton(
                           icon: const Icon(
@@ -193,12 +194,13 @@ class _AccountViewState extends State<AccountView> {
                   style: const TextStyle(
                     fontSize: 24,
                     fontWeight: FontWeight.bold,
+                    color: Colors.blueAccent,
                   ),
                 ),
                 Text(
                   profile.email,
                   style: TextStyle(
-                    color: Colors.grey[600],
+                    color: Colors.blueGrey[600],
                     fontSize: 16,
                   ),
                 ),
@@ -253,7 +255,7 @@ class _AccountViewState extends State<AccountView> {
                 icon: const Icon(Icons.edit),
                 label: const Text('Edit Profile'),
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.black,
+                  backgroundColor: Colors.blueAccent,
                   padding: const EdgeInsets.symmetric(vertical: 12),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(8),
@@ -272,7 +274,7 @@ class _AccountViewState extends State<AccountView> {
       padding: const EdgeInsets.symmetric(vertical: 8),
       child: Row(
         children: [
-          Icon(icon, color: Colors.grey[600]),
+          Icon(icon, color: Colors.blueGrey[600]),
           const SizedBox(width: 16),
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -280,7 +282,7 @@ class _AccountViewState extends State<AccountView> {
               Text(
                 label,
                 style: TextStyle(
-                  color: Colors.grey[600],
+                  color: Colors.blueGrey[600],
                   fontSize: 12,
                 ),
               ),
@@ -298,8 +300,6 @@ class _AccountViewState extends State<AccountView> {
     );
   }
 
-  // In AccountView, update the _buildActionButtons method
-
   Widget _buildActionButtons(BuildContext context) {
     return BlocBuilder<AccountBloc, AccountState>(
       builder: (context, state) {
@@ -313,7 +313,7 @@ class _AccountViewState extends State<AccountView> {
         return Column(
           children: [
             ListTile(
-              leading: Icon(BoxIcons.bx_heart, color: Colors.grey[600]),
+              leading: const Icon(BoxIcons.bx_heart, color: Colors.blueAccent),
               title: const Text('My Favorites'),
               trailing: const Icon(Icons.arrow_forward_ios, size: 16),
               onTap: () {
@@ -321,7 +321,8 @@ class _AccountViewState extends State<AccountView> {
               },
             ),
             ListTile(
-              leading: Icon(BoxIcons.bx_history, color: Colors.grey[600]),
+              leading:
+                  const Icon(BoxIcons.bx_history, color: Colors.blueAccent),
               title: const Text('Booking History'),
               trailing: const Icon(Icons.arrow_forward_ios, size: 16),
               onTap: () {
@@ -334,7 +335,7 @@ class _AccountViewState extends State<AccountView> {
             ),
             if (isAdmin) ...[
               ListTile(
-                leading: Icon(BoxIcons.bx_cog, color: Colors.grey[600]),
+                leading: const Icon(BoxIcons.bx_cog, color: Colors.blueAccent),
                 title: const Text('Admin Dashboard'),
                 trailing: const Icon(Icons.arrow_forward_ios, size: 16),
                 onTap: () {
@@ -343,7 +344,8 @@ class _AccountViewState extends State<AccountView> {
               ),
             ],
             ListTile(
-              leading: Icon(BoxIcons.bx_help_circle, color: Colors.grey[600]),
+              leading:
+                  const Icon(BoxIcons.bx_help_circle, color: Colors.blueAccent),
               title: const Text('Help & Support'),
               trailing: const Icon(Icons.arrow_forward_ios, size: 16),
               onTap: () {
@@ -352,17 +354,6 @@ class _AccountViewState extends State<AccountView> {
                   MaterialPageRoute(
                       builder: (context) => const HelpSupportView()),
                 );
-              },
-            ),
-            ListTile(
-              leading: Icon(BoxIcons.bx_info_circle, color: Colors.grey[600]),
-              title: const Text('About'),
-              trailing: const Icon(Icons.arrow_forward_ios, size: 16),
-              onTap: () {
-                // Navigator.push(
-                //   context,
-                //   MaterialPageRoute(builder: (context) => const AboutUsView()),
-                // );
               },
             ),
             const SizedBox(height: 16),
@@ -388,7 +379,7 @@ class _AccountViewState extends State<AccountView> {
                               context.read<AccountBloc>().add(LogoutEvent());
                             },
                             style: ElevatedButton.styleFrom(
-                              backgroundColor: Colors.red,
+                              backgroundColor: Colors.redAccent,
                             ),
                             child: const Text('Logout'),
                           ),
@@ -399,7 +390,7 @@ class _AccountViewState extends State<AccountView> {
                   icon: const Icon(Icons.logout),
                   label: const Text('Logout'),
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.red,
+                    backgroundColor: Colors.redAccent,
                     padding: const EdgeInsets.symmetric(vertical: 12),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(8),
