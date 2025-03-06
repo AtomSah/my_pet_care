@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:pet_care/app/constants/color_constants.dart';
 import 'package:pet_care/features/auth/presentation/view/register_view.dart';
 import 'package:pet_care/features/auth/presentation/view_model/login/login_bloc.dart';
 
@@ -17,39 +16,47 @@ class LoginView extends StatelessWidget {
     return Form(
       key: _loginFormKey,
       child: Scaffold(
+        backgroundColor: Colors.white,
         body: SafeArea(
-          child: SingleChildScrollView(
-            child: Column(
-              children: [
-                // Header Section with Title and Image
-                const SizedBox(height: 40),
-                const Text(
-                  "PET ME NOW",
-                  style: TextStyle(
-                    fontSize: 28,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.black,
-                  ),
+          child: Column(
+            children: [
+              // Header Section with Title
+              const SizedBox(height: 30),
+              const Text(
+                "PET ME NOW",
+                style: TextStyle(
+                  fontSize: 30,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.black,
+                  letterSpacing: 1.2,
                 ),
-                const SizedBox(height: 20),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 40.0),
-                  child: Image.asset(
-                    'assets/image/welcome-removebg.png',
-                    height: 200,
-                  ),
+              ),
+              const SizedBox(height: 10),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 40.0),
+                child: Image.asset(
+                  'assets/image/welcome-removebg.png',
+                  height: 150,
                 ),
-                const SizedBox(height: 20),
+              ),
+              const SizedBox(height: 89),
 
-                // Login Form Section
-                Container(
+              // Added Padding above Login Form Section
+              Padding(
+                padding:
+                    const EdgeInsets.only(top: 40.0), // Adjusted padding here
+                child: Container(
                   width: MediaQuery.of(context).size.width,
                   padding: const EdgeInsets.symmetric(horizontal: 20),
-                  decoration: const BoxDecoration(
-                    color: Color.fromARGB(178, 204, 209, 224),
-                    borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(45),
-                      topRight: Radius.circular(45),
+                  decoration: BoxDecoration(
+                    gradient: LinearGradient(
+                      colors: [Colors.blue[300]!, Colors.blue[700]!],
+                      begin: Alignment.topLeft,
+                      end: Alignment.bottomRight,
+                    ),
+                    borderRadius: const BorderRadius.only(
+                      topLeft: Radius.circular(40),
+                      topRight: Radius.circular(40),
                     ),
                   ),
                   child: Column(
@@ -59,38 +66,67 @@ class LoginView extends StatelessWidget {
                       const Text(
                         'Login',
                         style: TextStyle(
-                          fontSize: 33.0,
-                          color: Colors.black,
-                          fontWeight: FontWeight.w900,
+                          fontSize: 28.0,
+                          color: Colors.white,
+                          fontWeight: FontWeight.w800,
                         ),
                       ),
-                      const SizedBox(height: 20),
-                      TextField(
+                      const SizedBox(height: 30),
+                      // Email Field
+                      TextFormField(
                         controller: _usernameController,
                         decoration: InputDecoration(
-                          prefixIcon: const Icon(Icons.email),
                           hintText: 'Email',
+                          hintStyle: const TextStyle(color: Colors.white70),
                           border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(30),
+                            borderSide: BorderSide.none,
                           ),
                           filled: true,
-                          fillColor: Colors.white,
+                          fillColor: Colors.white.withOpacity(0.2),
+                          contentPadding: const EdgeInsets.symmetric(
+                              vertical: 15, horizontal: 20),
+                          prefixIcon:
+                              const Icon(Icons.email, color: Colors.white),
                         ),
+                        keyboardType: TextInputType.emailAddress,
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return 'Email is required';
+                          }
+                          return null;
+                        },
                       ),
-                      const SizedBox(height: 20),
-                      TextField(
+                      const SizedBox(height: 15),
+
+                      // Password Field
+                      TextFormField(
                         controller: _passwordController,
+                        obscureText: true,
                         decoration: InputDecoration(
-                          prefixIcon: const Icon(Icons.lock),
                           hintText: 'Password',
+                          hintStyle: const TextStyle(color: Colors.white70),
                           border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(30),
+                            borderSide: BorderSide.none,
                           ),
                           filled: true,
-                          fillColor: Colors.white,
+                          fillColor: Colors.white.withOpacity(0.2),
+                          contentPadding: const EdgeInsets.symmetric(
+                              vertical: 15, horizontal: 20),
+                          prefixIcon:
+                              const Icon(Icons.lock, color: Colors.white),
                         ),
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return 'Password is required';
+                          }
+                          return null;
+                        },
                       ),
-                      const SizedBox(height: 10),
+                      const SizedBox(height: 15),
+
+                      // Remember Me and Forgot Password Section
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
@@ -101,8 +137,12 @@ class LoginView extends StatelessWidget {
                                 onChanged: (value) {
                                   _rememberMe = value ?? false;
                                 },
+                                activeColor: Colors.white,
                               ),
-                              const Text("Remember Me"),
+                              const Text(
+                                "Remember Me",
+                                style: TextStyle(color: Colors.white70),
+                              ),
                             ],
                           ),
                           TextButton(
@@ -110,11 +150,16 @@ class LoginView extends StatelessWidget {
                               Navigator.of(context)
                                   .pushNamed("/forget-password");
                             },
-                            child: const Text("Forgot Password?"),
+                            child: const Text(
+                              "Forgot Password?",
+                              style: TextStyle(color: Colors.white),
+                            ),
                           ),
                         ],
                       ),
                       const SizedBox(height: 30),
+
+                      // Login Button
                       ElevatedButton(
                         onPressed: () {
                           if (_loginFormKey.currentState!.validate()) {
@@ -129,30 +174,29 @@ class LoginView extends StatelessWidget {
                         },
                         style: ElevatedButton.styleFrom(
                           padding: const EdgeInsets.symmetric(vertical: 18.0),
-                          backgroundColor: Colors.blue,
+                          backgroundColor: Colors.blue[700],
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(30),
                           ),
+                          minimumSize: const Size(double.infinity, 50),
                         ),
-                        child: const SizedBox(
-                          width: double.infinity,
-                          child: Center(
-                            child: Text(
-                              'Login',
-                              style: TextStyle(
-                                fontSize: 18,
-                                color: Colors.white,
-                              ),
-                            ),
+                        child: const Text(
+                          'Login',
+                          style: TextStyle(
+                            fontSize: 18,
+                            color: Colors.white,
                           ),
                         ),
                       ),
-                      const SizedBox(height: 30),
+                      const SizedBox(height: 20),
+
+                      // Sign-up Section
                       const Align(
                         alignment: Alignment.center,
                         child: Text(
                           "Don't have an account?",
-                          style: TextStyle(fontSize: 15.0, color: kGreyColor),
+                          style:
+                              TextStyle(fontSize: 15.0, color: Colors.white70),
                         ),
                       ),
                       Align(
@@ -168,7 +212,11 @@ class LoginView extends StatelessWidget {
                           },
                           child: const Text(
                             "Sign up",
-                            style: TextStyle(fontWeight: FontWeight.bold),
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              color: Colors.white,
+                              fontSize: 16,
+                            ),
                           ),
                         ),
                       ),
@@ -176,8 +224,8 @@ class LoginView extends StatelessWidget {
                     ],
                   ),
                 ),
-              ],
-            ),
+              ),
+            ],
           ),
         ),
       ),

@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:icons_plus/icons_plus.dart';
@@ -6,6 +8,7 @@ import 'package:pet_care/features/dashboard/presentation/view_model/dashboard_bl
 import 'package:pet_care/features/dashboard/presentation/view_model/dashboard_event.dart';
 import 'package:pet_care/features/dashboard/presentation/view_model/dashboard_state.dart';
 import 'package:pet_care/features/petDetails/presentation/view/petdetails.dart';
+import 'package:sensors_plus/sensors_plus.dart';
 
 class DashboardView extends StatefulWidget {
   const DashboardView({super.key});
@@ -16,11 +19,34 @@ class DashboardView extends StatefulWidget {
 
 class _DashboardViewState extends State<DashboardView> {
   String selectedCategory = 'All';
+  late StreamSubscription<AccelerometerEvent> _accelerometerSubscription;
+  double _previousAcceleration = 0.0;
+  final double _threshold = 15.0; // Set threshold for shake detection
 
   @override
   void initState() {
     super.initState();
     context.read<DashboardBloc>().add(LoadPetsEvent());
+
+    // Listen for accelerometer events to detect shake
+    _accelerometerSubscription =
+        accelerometerEvents.listen((AccelerometerEvent event) {
+      double currentAcceleration =
+          (event.x.abs() + event.y.abs() + event.z.abs());
+
+      if (currentAcceleration - _previousAcceleration > _threshold) {
+        // Shake detected, trigger refresh
+        context.read<DashboardBloc>().add(LoadPetsEvent());
+      }
+
+      _previousAcceleration = currentAcceleration;
+    });
+  }
+
+  @override
+  void dispose() {
+    _accelerometerSubscription.cancel();
+    super.dispose();
   }
 
   void _filterPets(String category) {
@@ -343,32 +369,17 @@ class _DashboardViewState extends State<DashboardView> {
                       top: 8,
                       right: 8,
                       child: Container(
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: 8,
-                          vertical: 4,
-                        ),
+                        padding: const EdgeInsets.all(4),
                         decoration: BoxDecoration(
-                          color: Colors.green.withOpacity(0.9),
-                          borderRadius: BorderRadius.circular(12),
+                          color: Colors.green,
+                          borderRadius: BorderRadius.circular(10),
                         ),
-                        child: const Row(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            Icon(
-                              Icons.check_circle,
-                              color: Colors.white,
-                              size: 12,
-                            ),
-                            SizedBox(width: 4),
-                            Text(
-                              'Vaccinated',
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 10,
-                                fontWeight: FontWeight.w500,
-                              ),
-                            ),
-                          ],
+                        child: const Text(
+                          'Vaccinated',
+                          style: TextStyle(
+                            fontSize: 10,
+                            color: Colors.white,
+                          ),
                         ),
                       ),
                     ),
@@ -376,53 +387,24 @@ class _DashboardViewState extends State<DashboardView> {
               ),
             ),
             Padding(
-              padding: const EdgeInsets.all(12.0),
+              padding: const EdgeInsets.all(10.0),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
                     pet.name,
                     style: const TextStyle(
-                      fontSize: 16,
                       fontWeight: FontWeight.bold,
+                      fontSize: 16,
                     ),
-                    maxLines: 1,
-                    overflow: TextOverflow.ellipsis,
                   ),
-                  const SizedBox(height: 4),
+                  const SizedBox(height: 5),
                   Text(
-                    '${pet.breed} • ${pet.age} years',
+                    '${pet.type} - ${pet.breed}',
                     style: TextStyle(
-                      fontSize: 12,
                       color: Colors.grey[600],
+                      fontSize: 14,
                     ),
-                    maxLines: 1,
-                    overflow: TextOverflow.ellipsis,
-                  ),
-                  const SizedBox(height: 8),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        'Rs ${pet.price}',
-                        style: const TextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                      Container(
-                        padding: const EdgeInsets.all(6),
-                        decoration: BoxDecoration(
-                          color: Colors.black,
-                          borderRadius: BorderRadius.circular(8),
-                        ),
-                        child: const Icon(
-                          Icons.arrow_forward,
-                          color: Colors.white,
-                          size: 16,
-                        ),
-                      ),
-                    ],
                   ),
                 ],
               ),

@@ -1,9 +1,10 @@
+import 'package:pet_care/app/di/di.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:pet_care/app/di/di.dart';
-import 'package:pet_care/features/booking_popups/presentation/view_model/booking_confirmation_bloc.dart';
+import 'package:pet_care/core/utils/gyroscope_tilt_view.dart';
+import 'package:pet_care/features/booking/presentation/view/BookingConfirmationDialog.dart';
+import 'package:pet_care/features/booking/presentation/view_model/booking_confirmation_bloc.dart';
 import 'package:pet_care/features/dashboard/domain/entity/pet_entity.dart';
-import 'package:pet_care/features/booking_popups/presentation/view/BookingConfirmationDialog.dart';
 
 class PetDetailsView extends StatelessWidget {
   final PetEntity pet;
@@ -24,7 +25,7 @@ class PetDetailsView extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            _buildPetImage(),
+            _buildPetImage(), // Pet image with gyroscope tilt effect
             const SizedBox(height: 16),
             _buildPetInfo(),
             const SizedBox(height: 20),
@@ -36,20 +37,22 @@ class PetDetailsView extends StatelessWidget {
   }
 
   Widget _buildPetImage() {
-    return ClipRRect(
-      borderRadius: BorderRadius.circular(20),
-      child: Image.network(
-        pet.image.isNotEmpty
-            ? 'http://10.0.2.2:5000${pet.image}'
-            : 'https://via.placeholder.com/150',
-        width: double.infinity,
-        height: 250,
-        fit: BoxFit.cover,
-        errorBuilder: (context, error, stackTrace) => Container(
+    return GyroscopeTiltView(
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(20),
+        child: Image.network(
+          pet.image.isNotEmpty
+              ? 'http://10.0.2.2:5000${pet.image}'
+              : 'https://via.placeholder.com/150',
+          width: double.infinity,
           height: 250,
-          color: Colors.grey[300],
-          child: const Center(
-            child: Icon(Icons.pets, size: 50, color: Colors.grey),
+          fit: BoxFit.cover,
+          errorBuilder: (context, error, stackTrace) => Container(
+            height: 250,
+            color: Colors.grey[300],
+            child: const Center(
+              child: Icon(Icons.pets, size: 50, color: Colors.grey),
+            ),
           ),
         ),
       ),
@@ -139,17 +142,17 @@ class PetDetailsView extends StatelessWidget {
 
   Widget _buildActionButton(BuildContext context) {
     return SizedBox(
-    width: double.infinity,
-    child: ElevatedButton(
-      onPressed: () {
-        showDialog(
-          context: context,
-          builder: (context) => BlocProvider(
-            create: (context) => getIt<BookingConfirmationBloc>(),
-            child: BookingConfirmationDialog(pet: pet),
-          ),
-        );
-      },
+      width: double.infinity,
+      child: ElevatedButton(
+        onPressed: () {
+          showDialog(
+            context: context,
+            builder: (context) => BlocProvider(
+              create: (context) => getIt<BookingConfirmationBloc>(),
+              child: BookingConfirmationDialog(pet: pet),
+            ),
+          );
+        },
         style: ElevatedButton.styleFrom(
           backgroundColor: Colors.blue,
           padding: const EdgeInsets.symmetric(vertical: 16),

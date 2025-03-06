@@ -3,9 +3,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pet_care/core/common/snackbar/my_snackbar.dart';
-import 'package:pet_care/features/booking_popups/presentation/view_model/booking_confirmation_bloc.dart';
-import 'package:pet_care/features/booking_popups/presentation/view_model/booking_confirmation_event.dart';
-import 'package:pet_care/features/booking_popups/presentation/view_model/booking_confirmation_state.dart';
+import 'package:pet_care/features/booking/presentation/view_model/booking_confirmation_bloc.dart';
+import 'package:pet_care/features/booking/presentation/view_model/booking_confirmation_event.dart';
+import 'package:pet_care/features/booking/presentation/view_model/booking_confirmation_state.dart';
 import 'package:pet_care/features/booked_pets/presentation/view/bookings_list_view.dart';
 import 'package:pet_care/features/dashboard/domain/entity/pet_entity.dart';
 

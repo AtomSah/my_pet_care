@@ -110,16 +110,17 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
         }
       },
       child: Scaffold(
-        backgroundColor: Colors.lightBlue[100],
+        backgroundColor: Colors.white,
         appBar: AppBar(
-          title: const Text("Register"),
-          backgroundColor: Colors.blue,
+          title: const Text("Create Account"),
+          backgroundColor: Colors.blueAccent,
+          elevation: 0,
         ),
         body: SafeArea(
           child: Center(
             child: SingleChildScrollView(
               child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 40.0),
+                padding: const EdgeInsets.symmetric(horizontal: 30.0),
                 child: Form(
                   key: _formKey,
                   child: Column(
@@ -153,6 +154,12 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                                     },
                                     icon: const Icon(Icons.camera),
                                     label: const Text('Camera'),
+                                    style: ElevatedButton.styleFrom(
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(10),
+                                      ),
+                                      backgroundColor: Colors.blueAccent,
+                                    ),
                                   ),
                                   ElevatedButton.icon(
                                     onPressed: () {
@@ -161,6 +168,12 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                                     },
                                     icon: const Icon(Icons.image),
                                     label: const Text('Gallery'),
+                                    style: ElevatedButton.styleFrom(
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(10),
+                                      ),
+                                      backgroundColor: Colors.blueAccent,
+                                    ),
                                   ),
                                 ],
                               ),
@@ -168,23 +181,23 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                           );
                         },
                         child: Container(
-                          height: 200,
-                          width: 200,
+                          height: 150,
+                          width: 150,
                           decoration: BoxDecoration(
                             shape: BoxShape.circle,
-                            color: Colors.grey[200],
+                            color: Colors.blue[50],
                           ),
                           child: _img != null
                               ? CircleAvatar(
                                   backgroundImage: FileImage(_img!),
-                                  radius: 100,
+                                  radius: 75,
                                 )
                               : const CircleAvatar(
-                                  radius: 100,
+                                  radius: 75,
                                   child: Icon(
                                     Icons.person,
                                     size: 80,
-                                    color: Colors.grey,
+                                    color: Colors.blueAccent,
                                   ),
                                 ),
                         ),
@@ -201,7 +214,9 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                             borderRadius: BorderRadius.circular(30),
                           ),
                           filled: true,
-                          fillColor: Colors.white,
+                          fillColor: Colors.blue[50],
+                          contentPadding: const EdgeInsets.symmetric(
+                              vertical: 15, horizontal: 20),
                         ),
                         validator: _validateName,
                       ),
@@ -217,7 +232,9 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                             borderRadius: BorderRadius.circular(30),
                           ),
                           filled: true,
-                          fillColor: Colors.white,
+                          fillColor: Colors.blue[50],
+                          contentPadding: const EdgeInsets.symmetric(
+                              vertical: 15, horizontal: 20),
                         ),
                         keyboardType: TextInputType.emailAddress,
                         validator: _validateEmail,
@@ -235,13 +252,15 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                             borderRadius: BorderRadius.circular(30),
                           ),
                           filled: true,
-                          fillColor: Colors.white,
+                          fillColor: Colors.blue[50],
+                          contentPadding: const EdgeInsets.symmetric(
+                              vertical: 15, horizontal: 20),
                         ),
                         validator: _validatePassword,
                       ),
                       const SizedBox(height: 30),
 
-                      /// phone number Field
+                      /// Phone Number Field
                       TextFormField(
                         controller: _numberController,
                         decoration: InputDecoration(
@@ -251,7 +270,9 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                             borderRadius: BorderRadius.circular(30),
                           ),
                           filled: true,
-                          fillColor: Colors.white,
+                          fillColor: Colors.blue[50],
+                          contentPadding: const EdgeInsets.symmetric(
+                              vertical: 15, horizontal: 20),
                         ),
                         keyboardType: TextInputType.phone,
                         validator: (value) {
@@ -301,7 +322,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                                     }
                                   },
                             style: ElevatedButton.styleFrom(
-                              backgroundColor: Colors.blue,
+                              backgroundColor: Colors.blueAccent,
                               minimumSize: const Size(double.infinity, 50),
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(30),

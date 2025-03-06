@@ -2,7 +2,7 @@
 
 import 'package:dio/dio.dart';
 import 'package:pet_care/app/constants/api_endpoints.dart';
-import 'package:pet_care/features/booking_popups/domain/entity/booking_confirmation_entity.dart';
+import 'package:pet_care/features/booking/domain/entity/booking_confirmation_entity.dart';
 
 abstract class IBookingConfirmationDataSource {
   Future<void> confirmBooking(BookingConfirmationEntity bookingData);

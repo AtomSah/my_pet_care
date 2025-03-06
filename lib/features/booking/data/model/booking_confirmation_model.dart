@@ -1,7 +1,7 @@
 // lib/features/booking/data/model/booking_confirmation_model.dart
 
 import 'package:dartz/dartz.dart';
-import 'package:pet_care/features/booking_popups/domain/entity/booking_confirmation_entity.dart';
+import 'package:pet_care/features/booking/domain/entity/booking_confirmation_entity.dart';
 
 class BookingConfirmationModel {
   final String petId;

@@ -2,8 +2,8 @@
 
 import 'package:dartz/dartz.dart';
 import 'package:pet_care/core/error/failure.dart';
-import 'package:pet_care/features/booking_popups/data/data_source/booking_confirmation_data_source.dart';
-import 'package:pet_care/features/booking_popups/domain/entity/booking_confirmation_entity.dart';
+import 'package:pet_care/features/booking/data/data_source/booking_confirmation_data_source.dart';
+import 'package:pet_care/features/booking/domain/entity/booking_confirmation_entity.dart';
 
 abstract class IBookingConfirmationRepository {
   Future<Either<Failure, void>> confirmBooking(BookingConfirmationEntity bookingData);

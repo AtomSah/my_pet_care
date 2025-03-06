@@ -1,10 +1,10 @@
 // lib/features/booking/presentation/view_model/booking_confirmation_bloc.dart
 
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:pet_care/features/booking_popups/domain/entity/booking_confirmation_entity.dart';
-import 'package:pet_care/features/booking_popups/domain/repository/booking_confirmation_repository.dart';
-import 'package:pet_care/features/booking_popups/presentation/view_model/booking_confirmation_event.dart';
-import 'package:pet_care/features/booking_popups/presentation/view_model/booking_confirmation_state.dart';
+import 'package:pet_care/features/booking/domain/entity/booking_confirmation_entity.dart';
+import 'package:pet_care/features/booking/domain/repository/booking_confirmation_repository.dart';
+import 'package:pet_care/features/booking/presentation/view_model/booking_confirmation_event.dart';
+import 'package:pet_care/features/booking/presentation/view_model/booking_confirmation_state.dart';
 
 class BookingConfirmationBloc
     extends Bloc<BookingConfirmationEvent, BookingConfirmationState> {
