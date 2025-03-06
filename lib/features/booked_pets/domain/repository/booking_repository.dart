@@ -1,7 +1,7 @@
 import 'package:dartz/dartz.dart';
 import 'package:pet_care/core/error/failure.dart';
-import 'package:pet_care/features/booking/data/data_source/booking_data_source.dart';
-import 'package:pet_care/features/booking/domain/entity/booking_entity.dart';
+import 'package:pet_care/features/booked_pets/data/data_source/booking_data_source.dart';
+import 'package:pet_care/features/booked_pets/domain/entity/booking_entity.dart';
 
 abstract class IBookingRepository {
   Future<Either<Failure, List<BookingEntity>>> getUserBookings();

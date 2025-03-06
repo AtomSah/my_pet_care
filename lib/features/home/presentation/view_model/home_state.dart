@@ -1,7 +1,7 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:pet_care/features/account/presentation/view/account_view.dart';
-import 'package:pet_care/features/booking/presentation/view/bookings_list_view.dart';
+import 'package:pet_care/features/booked_pets/presentation/view/bookings_list_view.dart';
 import 'package:pet_care/features/dashboard/presentation/view/dashboard_view.dart';
 
 class HomeState extends Equatable {

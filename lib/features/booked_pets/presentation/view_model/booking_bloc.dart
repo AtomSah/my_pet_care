@@ -1,7 +1,7 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:pet_care/features/booking/domain/repository/booking_repository.dart';
-import 'package:pet_care/features/booking/presentation/view_model/booking_event.dart';
-import 'package:pet_care/features/booking/presentation/view_model/booking_state.dart';
+import 'package:pet_care/features/booked_pets/domain/repository/booking_repository.dart';
+import 'package:pet_care/features/booked_pets/presentation/view_model/booking_event.dart';
+import 'package:pet_care/features/booked_pets/presentation/view_model/booking_state.dart';
 
 class BookingBloc extends Bloc<BookingEvent, BookingState> {
   final IBookingRepository _bookingRepository;

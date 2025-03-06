@@ -8,7 +8,7 @@ import 'package:pet_care/features/account/presentation/view/help_support_view.da
 import 'package:pet_care/features/account/presentation/view_model/account_bloc.dart';
 import 'package:pet_care/features/account/presentation/view_model/account_event.dart';
 import 'package:pet_care/features/auth/presentation/view/login_view.dart';
-import 'package:pet_care/features/booking/presentation/view/bookings_list_view.dart';
+import 'package:pet_care/features/booked_pets/presentation/view/bookings_list_view.dart';
 
 class AccountView extends StatefulWidget {
   const AccountView({super.key});
