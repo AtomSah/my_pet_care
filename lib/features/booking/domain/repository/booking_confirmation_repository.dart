@@ -6,4 +6,5 @@ import 'package:pet_care/features/booking/domain/entity/booking_confirmation_ent
 
 abstract class IBookingConfirmationRepository {
   Future<Either<Failure, void>> confirmBooking(BookingConfirmationEntity bookingData);
+  
 }
