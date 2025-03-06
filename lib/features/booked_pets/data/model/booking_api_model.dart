@@ -1,4 +1,4 @@
-import 'package:pet_care/features/booking/domain/entity/booking_entity.dart';
+import 'package:pet_care/features/booked_pets/domain/entity/booking_entity.dart';
 import 'package:pet_care/features/dashboard/data/model/pet_api_model.dart';
 
 class BookingApiModel {

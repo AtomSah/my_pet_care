@@ -4,10 +4,11 @@ import 'package:icons_plus/icons_plus.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:pet_care/core/common/snackbar/my_snackbar.dart';
 import 'package:pet_care/features/account/domain/entity/user_profile_entity.dart';
+import 'package:pet_care/features/account/presentation/view/help_support_view.dart';
 import 'package:pet_care/features/account/presentation/view_model/account_bloc.dart';
 import 'package:pet_care/features/account/presentation/view_model/account_event.dart';
 import 'package:pet_care/features/auth/presentation/view/login_view.dart';
-import 'package:pet_care/features/booking/presentation/view/bookings_list_view.dart';
+import 'package:pet_care/features/booked_pets/presentation/view/bookings_list_view.dart';
 
 class AccountView extends StatefulWidget {
   const AccountView({super.key});
@@ -346,7 +347,11 @@ class _AccountViewState extends State<AccountView> {
               title: const Text('Help & Support'),
               trailing: const Icon(Icons.arrow_forward_ios, size: 16),
               onTap: () {
-                // Navigate to help & support
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => const HelpSupportView()),
+                );
               },
             ),
             ListTile(
@@ -354,12 +359,10 @@ class _AccountViewState extends State<AccountView> {
               title: const Text('About'),
               trailing: const Icon(Icons.arrow_forward_ios, size: 16),
               onTap: () {
-                showAboutDialog(
-                  context: context,
-                  applicationName: 'Pet Care',
-                  applicationVersion: '1.0.0',
-                  applicationLegalese: '© 2024 Pet Care',
-                );
+                // Navigator.push(
+                //   context,
+                //   MaterialPageRoute(builder: (context) => const AboutUsView()),
+                // );
               },
             ),
             const SizedBox(height: 16),

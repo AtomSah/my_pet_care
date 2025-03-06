@@ -5,7 +5,7 @@ import 'package:pet_care/core/theme/app_theme.dart';
 import 'package:pet_care/features/account/presentation/view_model/account_bloc.dart';
 import 'package:pet_care/features/auth/presentation/view_model/login/login_bloc.dart';
 import 'package:pet_care/features/auth/presentation/view_model/signup/register_bloc.dart';
-import 'package:pet_care/features/booking/presentation/view_model/booking_bloc.dart';
+import 'package:pet_care/features/booked_pets/presentation/view_model/booking_bloc.dart';
 import 'package:pet_care/features/dashboard/presentation/view_model/dashboard_bloc.dart';
 import 'package:pet_care/features/dashboard/presentation/view_model/dashboard_event.dart';
 import 'package:pet_care/features/home/presentation/view_model/home_cubit.dart';

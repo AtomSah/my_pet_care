@@ -1,6 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:pet_care/app/constants/api_endpoints.dart';
-import 'package:pet_care/features/booking/data/model/booking_api_model.dart';
+import 'package:pet_care/features/booked_pets/data/model/booking_api_model.dart';
 
 abstract class IBookingDataSource {
   Future<List<BookingApiModel>> getUserBookings();

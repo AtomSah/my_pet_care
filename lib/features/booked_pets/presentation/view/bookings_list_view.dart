@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:icons_plus/icons_plus.dart';
 import 'package:pet_care/core/common/snackbar/my_snackbar.dart';
-import 'package:pet_care/features/booking/domain/entity/booking_entity.dart';
-import 'package:pet_care/features/booking/presentation/view_model/booking_bloc.dart';
-import 'package:pet_care/features/booking/presentation/view_model/booking_event.dart';
-import 'package:pet_care/features/booking/presentation/view_model/booking_state.dart';
+import 'package:pet_care/features/booked_pets/domain/entity/booking_entity.dart';
+import 'package:pet_care/features/booked_pets/presentation/view_model/booking_bloc.dart';
+import 'package:pet_care/features/booked_pets/presentation/view_model/booking_event.dart';
+import 'package:pet_care/features/booked_pets/presentation/view_model/booking_state.dart';
 
 class BookingsListView extends StatefulWidget {
   const BookingsListView({super.key});
