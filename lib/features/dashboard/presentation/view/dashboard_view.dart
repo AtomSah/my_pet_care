@@ -5,7 +5,7 @@ import 'package:pet_care/features/dashboard/domain/entity/pet_entity.dart';
 import 'package:pet_care/features/dashboard/presentation/view_model/dashboard_bloc.dart';
 import 'package:pet_care/features/dashboard/presentation/view_model/dashboard_event.dart';
 import 'package:pet_care/features/dashboard/presentation/view_model/dashboard_state.dart';
-import 'package:pet_care/features/petDetails/petdetails.dart';
+import 'package:pet_care/features/petDetails/presentation/view/petdetails.dart';
 
 class DashboardView extends StatefulWidget {
   const DashboardView({super.key});
