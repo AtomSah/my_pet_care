@@ -2,7 +2,7 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pet_care/core/common/snackbar/my_snackbar.dart';
-import 'package:pet_care/features/account2/AdminPage2.dart';
+import 'package:pet_care/features/adminpage/AdminPage.dart';
 import 'package:pet_care/features/auth/domain/use_case/login_usecase.dart';
 import 'package:pet_care/features/auth/presentation/view_model/signup/register_bloc.dart';
 import 'package:pet_care/features/home/presentation/view/home_view.dart';
@@ -52,10 +52,10 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
         // Redirect to Admin Panel
         emit(state.copyWith(isLoading: false, isSuccess: true));
         Navigator.pushReplacement(
-        event.context,
-        MaterialPageRoute(
-          builder: (context) => const AdminPage(),
-        ),
+          event.context,
+          MaterialPageRoute(
+            builder: (context) => const AdminPage(),
+          ),
         );
         return;
       }

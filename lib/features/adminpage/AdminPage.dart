@@ -30,7 +30,177 @@ class _AdminPageState extends State<AdminPage>
     super.initState();
     _dio = getIt<Dio>();
     _tabController = TabController(length: 3, vsync: this);
-    _loadAllData();
+
+    // Static Users Data
+    _users = [
+      {
+        'name': 'John Doe',
+        'email': 'john@example.com',
+        'phone': '9876543210',
+        'role': 'admin',
+      },
+      {
+        'name': 'Sarah Smith',
+        'email': 'sarah@example.com',
+        'phone': '9876543211',
+        'role': 'user',
+      },
+      {
+        'name': 'Mike Johnson',
+        'email': 'mike@example.com',
+        'phone': '9876543212',
+        'role': 'user',
+      },
+      {
+        'name': 'Emily Brown',
+        'email': 'emily@example.com',
+        'phone': '9876543213',
+        'role': 'user',
+      },
+      {
+        'name': 'David Wilson',
+        'email': 'david@example.com',
+        'phone': '9876543214',
+        'role': 'admin',
+      },
+      {
+        'name': 'Lisa Anderson',
+        'email': 'lisa@example.com',
+        'phone': '9876543215',
+        'role': 'user',
+      },
+      {
+        'name': 'Tom Harris',
+        'email': 'tom@example.com',
+        'phone': '9876543216',
+        'role': 'user',
+      },
+      {
+        'name': 'Emma Davis',
+        'email': 'emma@example.com',
+        'phone': '9876543217',
+        'role': 'user',
+      },
+      {
+        'name': 'James Miller',
+        'email': 'james@example.com',
+        'phone': '9876543218',
+        'role': 'user',
+      },
+      {
+        'name': 'Sophie Taylor',
+        'email': 'sophie@example.com',
+        'phone': '9876543219',
+        'role': 'user',
+      },
+    ];
+
+    // Static Bookings Data
+    _bookings = [
+      {
+        'pet': {
+          'name': 'Max',
+          'image': '/uploads/pets/41cea351beca8e603111007e.jpeg',
+        },
+        'name': 'John Doe',
+        'contact': '9876543210',
+        'address': 'Kathmandu, Nepal',
+        'status': 'confirmed',
+      },
+      {
+        'pet': {
+          'name': 'Luna',
+          'image': '/uploads/pets/41cea351beca8e603111007e.jpeg',
+        },
+        'name': 'Sarah Smith',
+        'contact': '9876543211',
+        'address': 'Pokhara, Nepal',
+        'status': 'pending',
+      },
+      {
+        'pet': {
+          'name': 'Buddy',
+          'image': '/uploads/pets/41cea351beca8e603111007e.jpeg',
+        },
+        'name': 'Mike Johnson',
+        'contact': '9876543212',
+        'address': 'Lalitpur, Nepal',
+        'status': 'cancelled',
+      },
+      {
+        'pet': {
+          'name': 'Bella',
+          'image': '/uploads/pets/41cea351beca8e603111007e.jpeg',
+        },
+        'name': 'Emily Brown',
+        'contact': '9876543213',
+        'address': 'Bhaktapur, Nepal',
+        'status': 'confirmed',
+      },
+      {
+        'pet': {
+          'name': 'Charlie',
+          'image': '/uploads/pets/41cea351beca8e603111007e.jpeg',
+        },
+        'name': 'David Wilson',
+        'contact': '9876543214',
+        'address': 'Butwal, Nepal',
+        'status': 'pending',
+      },
+      {
+        'pet': {
+          'name': 'Lucy',
+          'image': '/uploads/pets/41cea351beca8e603111007e.jpeg',
+        },
+        'name': 'Lisa Anderson',
+        'contact': '9876543215',
+        'address': 'Biratnagar, Nepal',
+        'status': 'confirmed',
+      },
+      {
+        'pet': {
+          'name': 'Rocky',
+          'image': '/uploads/pets/41cea351beca8e603111007e.jpeg',
+        },
+        'name': 'Tom Harris',
+        'contact': '9876543216',
+        'address': 'Dharan, Nepal',
+        'status': 'pending',
+      },
+      {
+        'pet': {
+          'name': 'Milo',
+          'image': '/uploads/pets/41cea351beca8e603111007e.jpeg',
+        },
+        'name': 'Emma Davis',
+        'contact': '9876543217',
+        'address': 'Chitwan, Nepal',
+        'status': 'cancelled',
+      },
+      {
+        'pet': {
+          'name': 'Bailey',
+          'image': '/uploads/pets/41cea351beca8e603111007e.jpeg',
+        },
+        'name': 'James Miller',
+        'contact': '9876543218',
+        'address': 'Hetauda, Nepal',
+        'status': 'confirmed',
+      },
+      {
+        'pet': {
+          'name': 'Leo',
+          'image': '/uploads/pets/41cea351beca8e603111007e.jpeg',
+        },
+        'name': 'Sophie Taylor',
+        'contact': '9876543219',
+        'address': 'Birgunj, Nepal',
+        'status': 'pending',
+      },
+    ];
+
+    // Only load pets from API
+    _loadPets();
   }
 
   @override
@@ -69,7 +239,7 @@ class _AdminPageState extends State<AdminPage>
           await _dio.get('${ApiEndpoints.baseUrl}user/get-all-users');
       if (response.statusCode == 200) {
         setState(() {
-          _users = response.data;
+          _users = response.data['users'];
         });
       }
     } catch (e) {
