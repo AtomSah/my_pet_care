@@ -69,6 +69,7 @@ void main() {
         return registerBloc;
       },
       act: (bloc) => bloc.add(RegisterUserEvent(
+        number: userParams.phone,
         fullName: userParams.fullName,
         email: userParams.email,
         password: userParams.password,
@@ -89,6 +90,7 @@ void main() {
         return registerBloc;
       },
       act: (bloc) => bloc.add(RegisterUserEvent(
+        number: userParams.phone,
         fullName: userParams.fullName,
         email: userParams.email,
         password: userParams.password,

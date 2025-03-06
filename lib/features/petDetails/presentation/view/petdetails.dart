@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:pet_care/app/di/di.dart';
+import 'package:pet_care/features/booking_popups/presentation/view_model/booking_confirmation_bloc.dart';
 import 'package:pet_care/features/dashboard/domain/entity/pet_entity.dart';
-import 'package:pet_care/features/booking/presentation/view/BookingConfirmationDialog.dart';
+import 'package:pet_care/features/booking_popups/presentation/view/BookingConfirmationDialog.dart';
 
 class PetDetailsView extends StatelessWidget {
   final PetEntity pet;
@@ -136,19 +139,17 @@ class PetDetailsView extends StatelessWidget {
 
   Widget _buildActionButton(BuildContext context) {
     return SizedBox(
-      width: double.infinity,
-      child: ElevatedButton(
-        onPressed: () {
-          showDialog(
-            context: context,
-            builder: (context) => BookingConfirmationDialog(
-              onConfirm: (name, phone, location) {
-                // Handle booking logic here (e.g., save to database or update state)
-                print("Booking Confirmed: $name, $phone, $location");
-              },
-            ),
-          );
-        },
+    width: double.infinity,
+    child: ElevatedButton(
+      onPressed: () {
+        showDialog(
+          context: context,
+          builder: (context) => BlocProvider(
+            create: (context) => getIt<BookingConfirmationBloc>(),
+            child: BookingConfirmationDialog(pet: pet),
+          ),
+        );
+      },
         style: ElevatedButton.styleFrom(
           backgroundColor: Colors.blue,
           padding: const EdgeInsets.symmetric(vertical: 16),

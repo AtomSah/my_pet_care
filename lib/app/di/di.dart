@@ -18,6 +18,9 @@ import 'package:pet_care/features/auth/presentation/view_model/signup/register_b
 import 'package:pet_care/features/booked_pets/data/data_source/booking_data_source.dart';
 import 'package:pet_care/features/booked_pets/domain/repository/booking_repository.dart';
 import 'package:pet_care/features/booked_pets/presentation/view_model/booking_bloc.dart';
+import 'package:pet_care/features/booking_popups/data/data_source/booking_confirmation_data_source.dart';
+import 'package:pet_care/features/booking_popups/domain/repository/booking_confirmation_repository.dart';
+import 'package:pet_care/features/booking_popups/presentation/view_model/booking_confirmation_bloc.dart';
 import 'package:pet_care/features/dashboard/data/data_source/pet_data_source.dart';
 import 'package:pet_care/features/dashboard/domain/repository/pet_repository.dart';
 import 'package:pet_care/features/dashboard/presentation/view_model/dashboard_bloc.dart';
@@ -38,7 +41,8 @@ Future<void> initDependencies() async {
   await _initDashboardDependencies();
   await _initBookingDependencies();
   await _initAccountDependencies();
-
+  await _initBookingConfirmationDependencies();
+  
   await _initOnBoardingScreenDependencies();
   await _initSplashScreenDependencies();
 }
@@ -54,7 +58,7 @@ _initHiveService() async {
 
 _initApiService() {
   // Remote Data Source
-   getIt.registerLazySingleton<Dio>(
+  getIt.registerLazySingleton<Dio>(
     () => ApiService(
       Dio(),
       getIt<TokenSharedPrefs>(),
@@ -192,6 +196,26 @@ _initAccountDependencies() {
     () => AccountBloc(
       accountRepository: getIt<IAccountRepository>(),
       tokenSharedPrefs: getIt<TokenSharedPrefs>(),
+    ),
+  );
+}
+
+_initBookingConfirmationDependencies() {
+  // Data Source
+  getIt.registerFactory<IBookingConfirmationDataSource>(
+    () => BookingConfirmationRemoteDataSource(getIt<Dio>()),
+  );
+
+  // Repository
+  getIt.registerLazySingleton<IBookingConfirmationRepository>(
+    () =>
+        BookingConfirmationRepository(getIt<IBookingConfirmationDataSource>()),
+  );
+
+  // Bloc
+  getIt.registerFactory<BookingConfirmationBloc>(
+    () => BookingConfirmationBloc(
+      repository: getIt<IBookingConfirmationRepository>(),
     ),
   );
 }
