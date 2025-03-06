@@ -31,15 +31,15 @@ class LoginView extends StatelessWidget {
                   letterSpacing: 1.2,
                 ),
               ),
-              const SizedBox(height: 10),
+              const SizedBox(height: 19),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 40.0),
                 child: Image.asset(
-                  'assets/image/welcome-removebg.png',
-                  height: 150,
+                  'assets/image/login33.png',
+                  height: 200,
                 ),
               ),
-              const SizedBox(height: 89),
+              const SizedBox(height: 30),
 
               // Added Padding above Login Form Section
               Padding(
