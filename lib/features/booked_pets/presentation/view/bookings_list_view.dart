@@ -208,7 +208,7 @@ class _BookingsListViewState extends State<BookingsListView> {
                     ),
                     const SizedBox(height: 4),
                     Text(
-                      '\$${booking.pet.price}',
+                      'Rs${booking.pet.price}',
                       style: const TextStyle(
                         fontSize: 16,
                         fontWeight: FontWeight.bold,

@@ -21,7 +21,8 @@ class _DashboardViewState extends State<DashboardView> {
   String selectedCategory = 'All';
   late StreamSubscription<AccelerometerEvent> _accelerometerSubscription;
   double _previousAcceleration = 0.0;
-  final double _threshold = 15.0;
+  final double _threshold = 12.0;
+  DateTime? _lastShake;
 
   @override
   void initState() {
@@ -32,11 +33,34 @@ class _DashboardViewState extends State<DashboardView> {
         accelerometerEvents.listen((AccelerometerEvent event) {
       double currentAcceleration =
           (event.x.abs() + event.y.abs() + event.z.abs());
+      DateTime now = DateTime.now();
 
-      if (currentAcceleration - _previousAcceleration > _threshold) {
-        context.read<DashboardBloc>().add(LoadPetsEvent());
+      if (_lastShake == null ||
+          now.difference(_lastShake!) > const Duration(seconds: 1)) {
+        if (currentAcceleration - _previousAcceleration > _threshold) {
+          _lastShake = now;
+          context.read<DashboardBloc>().add(LoadPetsEvent());
+
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(
+              content: Row(
+                children: [
+                  Icon(Icons.refresh, color: Colors.white),
+                  SizedBox(width: 8),
+                  Text('Refreshing pets list...'),
+                ],
+              ),
+              backgroundColor: Colors.blueAccent,
+              duration: Duration(seconds: 1),
+              behavior: SnackBarBehavior.floating,
+              margin: EdgeInsets.all(8),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.all(Radius.circular(8)),
+              ),
+            ),
+          );
+        }
       }
-
       _previousAcceleration = currentAcceleration;
     });
   }
@@ -287,6 +311,21 @@ class _DashboardViewState extends State<DashboardView> {
                   fontWeight: FontWeight.bold,
                   color: Colors.blueAccent,
                 ),
+              ),
+              // Shake to refresh hint
+              Row(
+                children: [
+                  const Icon(Icons.phone_android, size: 16, color: Colors.grey),
+                  const SizedBox(width: 4),
+                  Text(
+                    'Shake to refresh',
+                    style: TextStyle(
+                      fontSize: 12,
+                      color: Colors.grey[600],
+                      fontStyle: FontStyle.italic,
+                    ),
+                  ),
+                ],
               ),
             ],
           ),
