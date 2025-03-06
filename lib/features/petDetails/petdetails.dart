@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pet_care/features/dashboard/domain/entity/pet_entity.dart';
-import 'package:pet_care/features/petDetails/BookingConfirmationDialog.dart';
+import 'package:pet_care/features/booking/presentation/view/BookingConfirmationDialog.dart';
 
 class PetDetailsView extends StatelessWidget {
   final PetEntity pet;
