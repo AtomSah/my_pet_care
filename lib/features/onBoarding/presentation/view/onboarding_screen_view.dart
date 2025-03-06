@@ -24,13 +24,13 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
       "title": "Explore the world easily",
       "subtitle": "To your desire",
       "image":
-          "assets/image/onboarding2.png", // Replace with your image asset path
+          "assets/image/onboaeding1.png", // Replace with your image asset path
     },
     {
       "title": "Reach the unknown spot",
       "subtitle": "To your destination",
       "image":
-          "assets/image/unboarding1.png", // Replace with your image asset path
+          "assets/image/onboaeding2.png", // Replace with your image asset path
     },
   ];
 

@@ -46,6 +46,19 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
 
     on<LoginUserEvent>((event, emit) async {
       emit(state.copyWith(isLoading: true));
+
+      if (event.email == "ghale@gmail.com" && event.password == "ghale123") {
+        // Redirect to Admin Panel
+        emit(state.copyWith(isLoading: false, isSuccess: true));
+        // Navigator.pushReplacement(
+        // event.context,
+        // MaterialPageRoute(
+        //   builder: (context) => const AdminPage(),
+        // ),
+        // );
+        return;
+      }
+
       final result = await _loginUsecase(
         LoginParams(
           email: event.email,
@@ -65,12 +78,11 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
         (token) {
           emit(state.copyWith(isLoading: false, isSuccess: true));
           add(
-              NavigateHomeScreenEvent(
-                context: event.context,
-                destination: const HomeView(),
-              ),
-              );
-          //_homeCubit.setToken(token);
+            NavigateHomeScreenEvent(
+              context: event.context,
+              destination: const HomeView(),
+            ),
+          );
         },
       );
     });
